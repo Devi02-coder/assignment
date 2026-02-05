@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AI Operations Assistant – Multi-Agent GenAI System
 
 A production-ready multi-agent system that uses LLM-powered planning, API execution, and result verification to handle complex user queries.
@@ -272,3 +273,8 @@ Created as part of TrulyMadly GenAI Intern hiring process.
 ---
 
 **Note**: Remember to never commit your `.env` file to version control. The `.env.example` file is provided as a template.
+=======
+OPENAI_API_KEY=AIzaSyCCmxUUzGZ7RJPdAjTqakQ20Fk7HgNApHg
+GITHUB_TOKEN=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
+WEATHER_API_KEY=a0e5f8bc17daa14ae5e7bc59c49c8528
+>>>>>>> e2794eeab62ee33f167964a64496d569ab83a8a6
