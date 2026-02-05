@@ -15,38 +15,38 @@ def check_environment():
     warnings = []
     
     # Check Python version
-    print("\n✓ Checking Python version...")
+    print("\n[INFO] Checking Python version...")
     if sys.version_info < (3, 8):
         issues.append("Python 3.8+ required")
     else:
-        print(f"  Python {sys.version_info.major}.{sys.version_info.minor} detected ✓")
+        print(f"  Python {sys.version_info.major}.{sys.version_info.minor} detected [OK]")
     
     # Check for .env file
-    print("\n✓ Checking .env file...")
+    print("\n[INFO] Checking .env file...")
     if not os.path.exists('.env'):
         issues.append(".env file not found - copy .env.example to .env")
     else:
-        print("  .env file exists ✓")
+        print("  .env file exists [OK]")
     
     # Check dependencies
-    print("\n✓ Checking installed packages...")
+    print("\n[INFO] Checking installed packages...")
     required_packages = ['fastapi', 'uvicorn', 'requests', 'openai', 'dotenv', 'pydantic']
     missing_packages = []
     
     for package in required_packages:
         try:
             __import__(package)
-            print(f"  {package} ✓")
+            print(f"  {package} [OK]")
         except ImportError:
             missing_packages.append(package)
-            print(f"  {package} ✗")
+            print(f"  {package} [FAIL]")
     
     if missing_packages:
         issues.append(f"Missing packages: {', '.join(missing_packages)}")
         print(f"\n  Run: pip install -r requirements.txt")
     
     # Check environment variables
-    print("\n✓ Checking environment variables...")
+    print("\n[INFO] Checking environment variables...")
     
     try:
         from dotenv import load_dotenv
@@ -59,23 +59,23 @@ def check_environment():
         if not openai_key or openai_key == 'your_openai_key_here':
             issues.append("OPENAI_API_KEY not set in .env")
         else:
-            print(f"  OPENAI_API_KEY: {openai_key[:20]}... ✓")
+            print(f"  OPENAI_API_KEY: {openai_key[:20]}... [OK]")
         
         if not github_token or github_token == 'your_github_token_here':
             issues.append("GITHUB_TOKEN not set in .env")
         else:
-            print(f"  GITHUB_TOKEN: {github_token[:20]}... ✓")
+            print(f"  GITHUB_TOKEN: {github_token[:20]}... [OK]")
         
         if not weather_key or weather_key == 'your_openweather_api_key_here':
             warnings.append("WEATHER_API_KEY not set - get one from https://openweathermap.org/api")
         else:
-            print(f"  WEATHER_API_KEY: {weather_key[:20]}... ✓")
+            print(f"  WEATHER_API_KEY: {weather_key[:20]}... [OK]")
     
     except Exception as e:
         issues.append(f"Error loading environment: {e}")
     
     # Check file structure
-    print("\n✓ Checking project structure...")
+    print("\n[INFO] Checking project structure...")
     required_files = [
         'main.py',
         'requirements.txt',
@@ -90,27 +90,27 @@ def check_environment():
     
     for file_path in required_files:
         if os.path.exists(file_path):
-            print(f"  {file_path} ✓")
+            print(f"  {file_path} [OK]")
         else:
             issues.append(f"Missing file: {file_path}")
-            print(f"  {file_path} ✗")
+            print(f"  {file_path} [FAIL]")
     
     # Summary
     print("\n" + "=" * 60)
     if not issues and not warnings:
-        print("✅ ALL CHECKS PASSED! You're ready to run the application.")
+        print("[SUCCESS] ALL CHECKS PASSED! You're ready to run the application.")
         print("\nStart the server with:")
         print("  uvicorn main:app --reload")
     else:
         if issues:
-            print("❌ ISSUES FOUND:")
+            print("[FAIL] ISSUES FOUND:")
             for issue in issues:
-                print(f"  • {issue}")
+                print(f"  * {issue}")
         
         if warnings:
-            print("\n⚠️  WARNINGS:")
+            print("\n[WARN] WARNINGS:")
             for warning in warnings:
-                print(f"  • {warning}")
+                print(f"  * {warning}")
         
         print("\nFix these issues before running the application.")
     

@@ -4,7 +4,7 @@ import json
 import sys
 
 try:
-    url = "http://localhost:8004/run-task"
+    url = "http://localhost:8006/run-task"
     payload = {
         "task": "Find top 1 Python GitHub repos and tell me the weather in Bangalore"
     }

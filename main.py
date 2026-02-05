@@ -1,3 +1,4 @@
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from agents.planner_agent import create_plan
@@ -9,6 +10,15 @@ app = FastAPI(
     description="Multi-Agent GenAI System with Planner, Executor, and Verifier",
     version="1.0.0"
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # allow all for development
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 class TaskRequest(BaseModel):
     task: str
@@ -70,4 +80,4 @@ def run_task(request: TaskRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8004)
+    uvicorn.run(app, host="0.0.0.0", port=8006)
